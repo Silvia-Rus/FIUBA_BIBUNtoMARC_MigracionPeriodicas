@@ -1,10 +1,13 @@
 
 # -*- coding: utf-8 -*-
-from gettersSetters.getters   import getList045d, getList045h, getList046c, getList048a
+from gettersSetters.getters   import getList045d, getList045h, getList046c, getList048a, getList050l_0509
 from gettersSetters.setters   import setCF008
-from regex import getCuatroPrimerasCifras, tieneFotos, tieneGraficas, tieneIlustraciones
+from regex import getCuatroPrimerasCifras, tieneFotos, tieneGraficas, tieneIlustraciones, borrarStringEnItemsDeLista
 from datetime import datetime
-from ..diccionarios import BIBUN048a_008_15_17, BIBUN046a_008_18
+from ..diccionarios.BIBUN_048a_008_15_17 import BIBUN_048a_008_15_17
+from ..diccionarios.BIBUN_046a_008_18 import BIBUN_046a_008_18
+from ..diccionarios.BIBUN_050_008_35_37 import BIBUN_050_008_35_37
+
 
 class CF008_maker:
     def __init__(self, recordBIBUN, recordMARC):
@@ -50,20 +53,26 @@ class CF008_maker:
       str11_14 = segundoAnioCifras if segundoAnioCifras else '||||'
       return self.setPosiciones008(str11_14, 11, 14)
 
-    def setControlField008_15_17(self): 
+    def setControlField008_15_17(self): # lugar de edición
       lugarEdicion = getList048a(self.recordBIBUN)[0]
-      str15_17 = BIBUN048a_008_15_17[lugarEdicion]
+      str15_17 = BIBUN_048a_008_15_17[lugarEdicion]
       while len(str15_17) < 3:
-        str15_17 += ' '
+        str15_17 += '#'
       return self.setPosiciones008(str15_17, 15, 17)
 
-    def setControlField008_18(self):
+    def setControlField008_18(self): # periodicidad
       str18 = '|' 
-      periodicidad = getList046c(self.recordBIBUN)[0]
-      if len(str18) > 0:
-        if BIBUN046a_008_18[periodicidad] != None:
-          str18 = BIBUN046a_008_18[periodicidad]
+      periodicidadLista = getList046c(self.recordBIBUN)
+      if len(periodicidadLista) > 0 and BIBUN_046a_008_18[periodicidadLista[0]] != None:
+          str18 = BIBUN_046a_008_18[periodicidadLista[0]]
       return self.setPosiciones008(str18, 18)
+
+    def setControlField008_35_37(self):
+      str35_37 = '|||'
+      idiomasLista = self.getListaConStringSinErr3()
+      if len(idiomasLista) > 0 and BIBUN_050_008_35_37[idiomasLista[0]] != None:
+        str35_37 = BIBUN_050_008_35_37[idiomasLista[0]]
+      return self.setPosiciones008(str35_37, 35, 37)
 
     def getPrimerAnioCifras(self):
       lista045d = getList045d(self.recordBIBUN)
@@ -80,6 +89,13 @@ class CF008_maker:
         return getCuatroPrimerasCifras(segundaFecha)
       else:
         return False
+
+    def getListaConStringSinErr3(self):
+      lista050 = getList050l_0509(self.recordBIBUN)
+      if len(lista050) > 0:
+        return borrarStringEnItemsDeLista(lista050, '[err3]')
+      else:
+        return False
     
     def addCF008(self):
        self.setControlField008_00_05()
@@ -87,6 +103,7 @@ class CF008_maker:
        self.setControlField008_11_14()
        self.setControlField008_15_17()
        self.setControlField008_18()
+       self.setControlField008_35_37()
        setCF008(self.recordMARC, self.CF008)
 
 

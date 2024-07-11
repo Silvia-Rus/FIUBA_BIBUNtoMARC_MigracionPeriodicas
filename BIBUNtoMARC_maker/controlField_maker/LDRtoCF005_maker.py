@@ -1,5 +1,5 @@
 
-from ..diccionarios import ocurrencias001
+from ..diccionarios.ocurrencias001 import ocurrencias001
 from datetime import datetime
 from gettersSetters.setters import setCF001, setCF003, setCF005
 

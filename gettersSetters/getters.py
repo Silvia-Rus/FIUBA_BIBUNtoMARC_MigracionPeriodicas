@@ -71,10 +71,13 @@ def getList046c(record):
 def getList048a(record):
     return getSubfieldsFromField(record, '048', 'a')
 
-def getIl300(record):
-    list300a = getSubfieldsFromField(record, '300', 'a')
-    list300b = getSubfieldsFromField(record, '300', 'b')
-    return list300a + list300b
+def getList050l_0509(record):
+    return getSubfieldsFromField(record, '050', 'l') + getSubfieldsFromField(record, '050', '9')
+
+# def getIl300(record):
+#     list300a = getSubfieldsFromField(record, '300', 'a')
+#     list300b = getSubfieldsFromField(record, '300', 'b')
+#     return list300a + list300b
 
 # def getAnio0452(record):
 #     list260c = getList260c(record)

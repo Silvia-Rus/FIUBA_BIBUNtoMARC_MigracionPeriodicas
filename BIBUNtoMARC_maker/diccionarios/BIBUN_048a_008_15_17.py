@@ -1,9 +1,6 @@
-
 # -*- coding: utf-8 -*-
 
-ocurrencias001 = [0]
-
-BIBUN048a_008_15_17 = {
+BIBUN_048a_008_15_17 = {
     'AR': 'ag',
     'AT': 'au',
     'AU': 'at',
@@ -56,24 +53,3 @@ BIBUN048a_008_15_17 = {
     'VE': 've',
     'ZA': 'sa'
 }
-BIBUN046a_008_18 = {
-    'an': 'a',
-    'Anual': 'a',
-    'bien': 'g',
-    'bimens': 'b',
-    'bimes': 'b',
-    'cuatr': 'z',
-    'irreg': 'z',
-    'mens': 'm',
-    'quin': 'b',
-    'seman': 'w',
-    'semes': 'f',
-    'trimens': 'j',
-    'trimes': 'q'
-}
-
-
-
-
-
-

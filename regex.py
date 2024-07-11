@@ -22,6 +22,13 @@ def apareceElStringEnLaLista(listaDeCasos, listaDeSubcampos):
                 return  True        
     return False
 
+def borrarStringEnItemsDeLista(listaDeCasos, string):
+    retorno = []
+    for caso in listaDeCasos:
+        retorno.append(caso.replace(string, ""))
+    return retorno
+
+
 def tieneIlustraciones(listaDeStrings):
     return apareceElStringEnLaLista(a, listaDeStrings)
 
