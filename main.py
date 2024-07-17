@@ -31,7 +31,7 @@ e = EscribirMARC(bibliosMARC)
 enlazador = Enlazador()
 
 # initCSV()
-# print(sys.version)
+# print(sys.version)sfBIBUN.code
 
 if(len(listaDeCampos) > 0):
     if os.path.exists(bibliosBIBUN):
@@ -41,10 +41,10 @@ if(len(listaDeCampos) > 0):
                 record = Record()
                 BIBUNtoMARC(record, recordBIBUN).MARCmaker()
                 print(record)
-                # enlazador.record = record
+                # enlazador.record = recordBIBUNtoMARCSubfields_equiv
                 # enlazador.link_auth(listaDeCampos)
                 e.escribir(record)
-            # print(writeCSVCounter(enlazador.recordCounter, enlazador.unlinkedAuth, enlazador.matchingAuth))
+            # print(writeCSVCounter(enlazador.recordCounter, enlazadoSFequivr.unlinkedAuth, enlazador.matchingAuth))
             # print("Trasnformacion exitosa:\n"
             #       "->Puede ver su archivo mrc modificado en archivos/mrcTransformed.\n"
             #       "->Puede ver los informes completos en archivos/reports.")
