@@ -30,3 +30,5 @@ def setCF008(record, valores):
     setCF(record, '008', valores)
 
 
+    
+
