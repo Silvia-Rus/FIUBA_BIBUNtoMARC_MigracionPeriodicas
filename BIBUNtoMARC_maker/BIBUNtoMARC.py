@@ -3,6 +3,8 @@ from BIBUNtoMARC_maker.controlField_maker.CF008_maker import CF008_maker
 from BIBUNtoMARC_maker.F0XX_maker import F0XX_maker
 from BIBUNtoMARC_maker.F2XXtitulos_maker import F2XXtitulos_maker
 from BIBUNtoMARC_maker.F2XXpublic_maker import F2XXpublic_maker
+from BIBUNtoMARC_maker.F3XXdescFis_maker import F3XXdescFis_maker
+
 
 
 
@@ -19,6 +21,7 @@ class BIBUNtoMARC:
 		F0XX_maker(self.recordBIBUN, self.recordMARC).addF0XX()
 		F2XXtitulos_maker(self.recordBIBUN, self.recordMARC).addF2XXtitulos()
 		F2XXpublic_maker(self.recordBIBUN, self.recordMARC).addF2XXpublic()
+		F3XXdescFis_maker(self.recordBIBUN, self.recordMARC).addF3XXdescDis()
 
 		#008
 		#0XX

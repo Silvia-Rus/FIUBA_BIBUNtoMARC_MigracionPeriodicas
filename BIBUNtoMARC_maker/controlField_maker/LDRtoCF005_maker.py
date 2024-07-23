@@ -30,7 +30,6 @@ class LDRtoCF005_maker:
 		# F931a = getSubfieldsFromField(self.recordBIBUN, '098', 'a')
 		# print(len(F931a))
 		# setCF001(self.recordMARC, F931a[0])
-		
 
 	def addCF003(self): 
 		setCF003(self.recordMARC, self.CF003)
