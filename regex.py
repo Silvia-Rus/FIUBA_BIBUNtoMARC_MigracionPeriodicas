@@ -22,12 +22,19 @@ def apareceElStringEnLaLista(listaDeCasos, listaDeSubcampos):
                 return  True        
     return False
 
+def separarParteEntreParentesis(texto):
+    retorno = []
+    partes = texto.split('(')
+    retorno.append(partes[0])
+    if len(partes) > 1:
+        retorno.append(partes[1].split(')')[0])
+    return retorno
+
 def borrarStringEnItemsDeLista(listaDeCasos, string):
     retorno = []
     for caso in listaDeCasos:
         retorno.append(caso.replace(string, ""))
     return retorno
-
 
 def tieneIlustraciones(listaDeStrings):
     return apareceElStringEnLaLista(a, listaDeStrings)
@@ -37,6 +44,12 @@ def tieneGraficas(listaDeStrings):
 
 def tieneFotos(listaDeStrings):
     return apareceElStringEnLaLista(o, listaDeStrings)
+
+def hacePrimeraLetraMinus(texto):
+    return texto[0].lower() + texto[1:]
+
+def hacePrimeraLetraMayus(texto):
+    return texto[0].upper() + texto[1:]
 
 
     

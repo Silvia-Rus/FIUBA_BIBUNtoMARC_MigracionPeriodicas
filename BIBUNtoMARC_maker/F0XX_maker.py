@@ -3,7 +3,6 @@ from pymarc import Field
 from pymarc import Subfield
 
 from gettersSetters.getters import getSubfieldsFromField
-# from gettersSetters.setters import setField
 
 
 class F0XX_maker:

@@ -13,8 +13,8 @@ from escribirMarc import EscribirMARC
 from informes  import initCSV, writeCSVCounter
 # from CF008_maker import CF008_maker
 
-# bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
-bibliosBIBUN = 'archivos/mrcFiles/BIB_10REG.mrc'
+bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
+# bibliosBIBUN = 'archivos/mrcFiles/BIB_10REG.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_1REG.mrc'
 
 campo100 = Campo('100', [Subcampo('a', ''), Subcampo('d', '')])
@@ -43,7 +43,7 @@ if(len(listaDeCampos) > 0):
                 print(record)
                 # enlazador.record = record
                 # enlazador.link_auth(listaDeCampos)
-                e.escribir(record)
+                # e.escribir(record)
             # print(writeCSVCounter(enlazador.recordCounter, enlazador.unlinkedAuth, enlazador.matchingAuth))
             # print("Trasnformacion exitosa:\n"
             #       "->Puede ver su archivo mrc modificado en archivos/mrcTransformed.\n"

@@ -54,8 +54,11 @@ class CF008_maker:
       return self.setPosiciones008(str11_14, 11, 14)
 
     def setControlField008_15_17(self): # lugar de edición
-      lugarEdicion = getList048a(self.recordBIBUN)[0]
-      str15_17 = BIBUN_048a_008_15_17[lugarEdicion]
+      lugarEdicionList = getList048a(self.recordBIBUN)
+      str15_17 = ''
+      if len(lugarEdicionList) > 0:
+        lugarEdicion = lugarEdicionList[0]
+        str15_17 = BIBUN_048a_008_15_17[lugarEdicion]
       while len(str15_17) < 3:
         str15_17 += '#'
       return self.setPosiciones008(str15_17, 15, 17)

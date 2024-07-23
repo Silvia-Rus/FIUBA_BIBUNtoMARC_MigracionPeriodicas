@@ -35,6 +35,7 @@ BIBUN_048a_008_15_17 = {
     'MX': 'mx',
     'NE': 'ne',
     'NL': 'ne',
+    'Nl': 'ne',
     'NO': 'no',
     'PE': 'pe',
     'PJ': 'ja',
