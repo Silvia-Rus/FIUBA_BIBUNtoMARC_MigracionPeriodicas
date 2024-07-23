@@ -32,17 +32,18 @@ class F5XXnotas_maker:
 					valueN = 'Números por volumen: '+sf.value+'. '
 				elif sf.code == 'v':
 					valueV = 'Volúmenes por año: '+sf.value+'. '
-				if valueN != '' or valueV != '':
-					subfieldsMARC = [Subfield('a', valueN + valueV)]
-					fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
-					self.recordMARC.add_field(fieldMARC)
+
+			if valueN != '' or valueV != '':
+				subfieldsMARC.append(Subfield('a', valueN + valueV))
+			fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
+			self.recordMARC.add_field(fieldMARC)
 
 	def set500desde059(self):
 		F059BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '059')
-		subfieldsMARC = []
 		for item in F059BIBUNList:
+			subfieldsMARC = []
 			for sf in item.subfields:
-					subfieldsMARC.append(Subfield('a', sf.value))
+				subfieldsMARC.append(Subfield('a', sf.value))
 			if len(subfieldsMARC) > 0:
 				fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
