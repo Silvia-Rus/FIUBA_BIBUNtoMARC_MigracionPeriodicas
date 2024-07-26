@@ -48,7 +48,7 @@ class F78Xrelaciones_maker:
 	def set785(self):
 		self.set78X('785')
 
-	def addF5XXnotas(self):
+	def addF78Xrelaciones(self):
 		self.set780()
 		self.set785()
 		self.recordMARC.add_field(self.F786o)
