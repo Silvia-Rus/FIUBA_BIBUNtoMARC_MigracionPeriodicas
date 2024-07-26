@@ -5,6 +5,7 @@ from BIBUNtoMARC_maker.F2XXtitulos_maker import F2XXtitulos_maker
 from BIBUNtoMARC_maker.F2XXpublic_maker import F2XXpublic_maker
 from BIBUNtoMARC_maker.F3XXdescFis_maker import F3XXdescFis_maker
 from BIBUNtoMARC_maker.F5XXnotas_maker import F5XXnotas_maker
+from BIBUNtoMARC_maker.encSec_maker import encSec_maker
 
 
 class BIBUNtoMARC:
@@ -21,6 +22,7 @@ class BIBUNtoMARC:
 		F2XXpublic_maker(self.recordBIBUN, self.recordMARC).addF2XXpublic()
 		F3XXdescFis_maker(self.recordBIBUN, self.recordMARC).addF3XXdescDis()
 		F5XXnotas_maker(self.recordBIBUN, self.recordMARC).addF5XXnotas()
+		encSec_maker(self.recordBIBUN, self.recordMARC).addEncSec()
 
 		#008
 		#0XX

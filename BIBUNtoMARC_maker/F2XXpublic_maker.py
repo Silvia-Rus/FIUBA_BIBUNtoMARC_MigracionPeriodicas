@@ -77,7 +77,6 @@ class F2XXpublic_maker:
 		sfB = self.set260b()
 		sfC = self.set260c()
 		subfieldsMARC = sfA + sfB + sfC
-		print(subfieldsMARC)
 		fieldMARC = Field('260', ['#', '#'], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 

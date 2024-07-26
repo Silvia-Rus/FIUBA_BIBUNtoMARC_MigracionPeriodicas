@@ -36,6 +36,33 @@ def borrarStringEnItemsDeLista(listaDeCasos, string):
         retorno.append(caso.replace(string, ""))
     return retorno
 
+def esElPrimerCaracter(texto, caracter):
+    retorno = False
+    if texto[0] == caracter:
+        retorno = True
+    return retorno
+
+def esElUltimoCaracter(texto, caracter):
+    retorno = False
+    if texto[-1] == caracter:
+        retorno = True
+    return retorno
+
+def borrarElPrimerCaracter(texto):
+    return texto[1:]
+
+def borrarElUltimoCaracter(texto):
+    return texto[:-1]
+
+def separarParteEntreSimbolos(texto, simbolo):
+    return texto.split(simbolo)
+    # retorno = []
+    # partes = texto.split(simbolo)
+    # retorno.append(partes[0])
+    # if len(partes) > 1:
+    #     retorno.append(partes[1].split(')')[0])
+    # return retorno
+
 def tieneIlustraciones(listaDeStrings):
     return apareceElStringEnLaLista(a, listaDeStrings)
 
