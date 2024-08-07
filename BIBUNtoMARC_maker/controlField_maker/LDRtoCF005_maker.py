@@ -1,5 +1,5 @@
 
-from ..diccionarios.ocurrencias001 import ocurrencias001
+from ..diccionarios.ocurrencias import F001
 from datetime import datetime
 from gettersSetters.setters import setCF001, setCF003, setCF005
 from gettersSetters.getters import getSubfieldsFromField
@@ -24,8 +24,8 @@ class LDRtoCF005_maker:
 		self.recordMARC.leader = self.LDR
 
 	def addCF001(self):
-		self.CF001 = ocurrencias001[0]
-		ocurrencias001[0] = self.CF001+1
+		self.CF001 = F001[0]
+		F001[0] = self.CF001+1
 		setCF001(self.recordMARC, str(self.CF001))
 		# F931a = getSubfieldsFromField(self.recordBIBUN, '098', 'a')
 		# print(len(F931a))

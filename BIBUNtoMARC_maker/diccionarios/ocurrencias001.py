@@ -1,1 +1,0 @@
-ocurrencias001 = [0]
