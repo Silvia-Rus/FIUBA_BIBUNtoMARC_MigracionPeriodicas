@@ -1,4 +1,4 @@
-BIBUN057r_MARC785ind2.py = {
+BIBUN058r_MARC785ind2 = {
     'Cont. p': 0,
     'Subdiv. en': 6,
     'Abs. p': 4,

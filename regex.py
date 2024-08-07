@@ -36,17 +36,18 @@ def borrarStringEnItemsDeLista(listaDeCasos, string):
         retorno.append(caso.replace(string, ""))
     return retorno
 
+def detectarString(stringCompleto, stringADetectar):
+    return stringADetectar in stringCompleto
+
+def borrarString(stringCompleto, stringABorrar):
+    return stringCompleto.replace(stringABorrar, "")
+
 def esElPrimerCaracter(texto, caracter):
-    retorno = False
-    if texto[0] == caracter:
-        retorno = True
-    return retorno
+    return texto[0] == caracter
+
 
 def esElUltimoCaracter(texto, caracter):
-    retorno = False
-    if texto[-1] == caracter:
-        retorno = True
-    return retorno
+    return texto[-1] == caracter
 
 def borrarElPrimerCaracter(texto):
     return texto[1:]

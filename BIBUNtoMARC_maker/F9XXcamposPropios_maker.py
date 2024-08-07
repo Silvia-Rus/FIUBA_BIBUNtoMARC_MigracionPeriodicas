@@ -27,7 +27,7 @@ class F9XXcamposPropios_maker:
 				subfieldsMARC.append(Subfield('a', sf.value))
 				fieldMARC = Field('985', ['0', '0'], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
-
+,
 	def set997(self):
 		list096BIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '098')
 		for item in list04XBIBUN:

@@ -6,6 +6,8 @@ from BIBUNtoMARC_maker.F2XXpublic_maker import F2XXpublic_maker
 from BIBUNtoMARC_maker.F3XXdescFis_maker import F3XXdescFis_maker
 from BIBUNtoMARC_maker.F5XXnotas_maker import F5XXnotas_maker
 from BIBUNtoMARC_maker.encSec_maker import encSec_maker
+from BIBUNtoMARC_maker.F78Xrelaciones_maker import F78Xrelaciones_maker
+
 
 
 class BIBUNtoMARC:
@@ -23,11 +25,8 @@ class BIBUNtoMARC:
 		F3XXdescFis_maker(self.recordBIBUN, self.recordMARC).addF3XXdescDis()
 		F5XXnotas_maker(self.recordBIBUN, self.recordMARC).addF5XXnotas()
 		encSec_maker(self.recordBIBUN, self.recordMARC).addEncSec()
+		F78Xrelaciones_maker(self.recordBIBUN, self.recordMARC).addF78Xrelaciones()
 
-		#008
-		#0XX
-		#2XX
-		#...
 
 
 		

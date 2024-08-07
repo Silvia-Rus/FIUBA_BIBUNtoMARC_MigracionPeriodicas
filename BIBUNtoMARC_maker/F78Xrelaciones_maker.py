@@ -4,34 +4,41 @@ from pymarc import Subfield
 from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
 from .diccionarios.BIBUN057r_MARC780ind2 import BIBUN057r_MARC780ind2
 from .diccionarios.BIBUN058r_MARC785ind2 import BIBUN058r_MARC785ind2
+from regex import borrarString, detectarString
+
 
 class F78Xrelaciones_maker:
 
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F786o = Field('780', ['#', '#'], [Subfield('o','AIG')])
+		self.F786o = Field('786', ['#', '#'], [Subfield('o','AIG')])
 
 
 	def set78X(self, tagField):
-		fieldBIBUN = '057' if tagField == '780' else fieldBIBUN = '058'
+		fieldBIBUN = '057' if tagField == '780' else '058'
 		list04XBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
 		ind2 = '#'
 		for item in list04XBIBUN:
 			subfieldsMARC = []
-			listSFr = getSubfields(item, 'r')
-			listSFt = getSubfields(item, 't')
-			if len(listSFr) == 0 and len(listSFt) == 2:
-				ind2 = self.setInd2(tagField, listSFt[0])
-				subfieldsMARC.append(Subfield('t', listSFt[1]))
-			elif len(listSFr) > 0 and len(listSFt) > 0::
-				ind2 = self.setInd2(tagField, listSFr[0])
-				subfieldsMARC.append(Subfield('t', listSFt[0]))
+			listSFrBIBUN = getSubfields(item, 'r')
+			listSFtBIBUN = getSubfields(item, 't')
+			listSFiMARC = [];
+			listSFtMARC = [];
+			listSFxMARC = [];
+			if len(listSFrBIBUN) == 0 and len(listSFtBIBUN) == 2:
+				ind2 = self.setInd2(tagField, listSFtBIBUN[0])
+				listSFtMARC.append(Subfield('t', listSFtBIBUN[1]))
+			elif len(listSFrBIBUN) > 0 and len(listSFtBIBUN) > 0:
+				ind2 = self.setInd2(tagField, listSFtBIBUN[0])
+				listSFtMARC.append(Subfield('t', listSFtBIBUN[0]))
 			for sf in item.subfields:
 				if sf.code == 'r':
-					subfieldsMARC.append(Subfield('i', sf.value))
+					listSFiMARC.append(Subfield('i', sf.value))
 				elif sf.code == 'i':
-					subfieldsMARC.append(Subfield('x', sf.value))
+					value = sf.value if not detectarString(sf.value, 'ISSN') else borrarString(sf.value, 'ISSN ')
+					listSFxMARC.append(Subfield('x', value))
+			subfieldsMARC = listSFiMARC + listSFtMARC + listSFxMARC
 			fieldMARC = Field(tagField, ['0', ind2], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 
