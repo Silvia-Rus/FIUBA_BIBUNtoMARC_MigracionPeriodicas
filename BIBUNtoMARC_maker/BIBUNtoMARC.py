@@ -9,8 +9,6 @@ from BIBUNtoMARC_maker.encSec_maker import encSec_maker
 from BIBUNtoMARC_maker.F78Xrelaciones_maker import F78Xrelaciones_maker
 from BIBUNtoMARC_maker.F9XXcamposPropios_maker import F9XXcamposPropios_maker
 
-
-
 class BIBUNtoMARC:
 
 	def __init__(self, recordMARC, recordBIBUN):

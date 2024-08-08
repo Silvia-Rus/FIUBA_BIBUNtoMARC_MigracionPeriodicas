@@ -3,8 +3,6 @@ from pymarc import Field
 from pymarc import Subfield
 from datetime import datetime
 from gettersSetters.getters import getListaDeCamposEnRegistro
-from .diccionarios.ocurrencias import F952p
-
 
 class F9XXcamposPropios_maker:
 
@@ -22,33 +20,21 @@ class F9XXcamposPropios_maker:
 		fieldMARC = Field('942', ['#', '#'], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
-	def set952(self):
-		subfieldsMARC = []
-		subfieldsMARC.append(Subfield('0', '0'))
-		subfieldsMARC.append(Subfield('1', '0'))
-		subfieldsMARC.append(Subfield('3', '0'))
-		subfieldsMARC.append(Subfield('7', '0'))
-		subfieldsMARC.append(Subfield('7', '0'))
-		subfieldsMARC.append(Subfield('a', 'BC'))
-		subfieldsMARC.append(Subfield('b', 'BC'))
-		subfieldsMARC.append(Subfield('o', '[SIGNATURA?]'))
-		# barcode
-		subfieldsMARC.append(Subfield('p', F952p[0]))
-		# fecha actual en formato MMMM-DD-AA
-		subfieldsMARC.append(Subfield('r', datetime.now().strftime('%Y-%m-%d')))
-		subfieldsMARC.append(Subfield('y', 'CR'))
-		fieldMARC = Field('952', ['#', '#'], subfieldsMARC)
-		self.recordMARC.add_field(fieldMARC)
-		F952p[0] += 1
-
-	def set985(self):
-		list096BIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '096')
-		for item in list096BIBUN:
+	def set985(self, field):
+		listBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, field)
+		for item in listBIBUN:
 			subfieldsMARC = []
 			for sf in item.subfields:
+				subfieldsMARC.append(Subfield('2', 'BIBUN '+field+'$a'))
 				subfieldsMARC.append(Subfield('a', sf.value))
 				fieldMARC = Field('985', ['0', '0'], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
+
+	def set985from085(self):
+		self.set985('085')
+
+	def set985from096(self):
+		self.set985('096')
 
 	def set997(self):
 		list098BIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '098')
@@ -62,7 +48,7 @@ class F9XXcamposPropios_maker:
 	def addF9XXcamposPropios(self):
 		self.recordMARC.add_field(self.F964)
 		self.set942()
-		self.set985()
+		self.set985from085()
+		self.set985from096()
 		self.set997()
-		self.set952()
 		
