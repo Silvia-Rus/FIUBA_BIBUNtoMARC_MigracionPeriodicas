@@ -17,12 +17,9 @@ class encSec_maker:
 			for sf in item.subfields:
 				if esElPrimerCaracter(sf.value, '<') and esElUltimoCaracter(sf.value, '>'):
 					text = borrarElPrimerCaracter(sf.value)
-					print('text: '+text)
 					text = borrarElUltimoCaracter(text)
-					print('text: '+text)
 					valueList = separarParteEntreSimbolos(text, '><')
 					for item in valueList:
-						print(item)
 						fieldMARC = Field('650', ['#', '#'], [Subfield('a', item)])
 						self.recordMARC.add_field(fieldMARC)
 				else:
