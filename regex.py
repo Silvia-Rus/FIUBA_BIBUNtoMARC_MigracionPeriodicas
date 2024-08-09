@@ -7,7 +7,6 @@ from Casos.casos008 import a, d, o
 def quitarTilde(string):
         return ''.join((c for c in unicodedata.normalize('NFD', string) if unicodedata.category(c) != 'Mn'))
 
-
 def getCuatroPrimerasCifras(texto):
     retorno = False
     busqueda = re.search(r'\d{4}', str(texto))
@@ -44,7 +43,6 @@ def borrarString(stringCompleto, stringABorrar):
 
 def esElPrimerCaracter(texto, caracter):
     return texto[0] == caracter
-
 
 def esElUltimoCaracter(texto, caracter):
     return texto[-1] == caracter

@@ -22,7 +22,7 @@ class F952ejemplares_maker:
 	def getSFfrom091(self, SF952):
 		value091t = self.getPrimerSF('091', 't')
 		diccionario = BIBUN091t_MARC952e if SF952 == 'e' else BIBUN091t_MARC952x
-		if not value091:
+		if not value091t:
 			return False
 		elif value091t in diccionario:
 			return diccionario[value091t]
@@ -47,20 +47,20 @@ class F952ejemplares_maker:
 		if F952iValue:
 			self.subfieldsMARC.append(Subfield('i', F952iValue))
 
-	def set952o:
+	def set952o(self):
 		F952oValue = self.get952o()
 		if F952oValue:
 			self.subfieldsMARC.append(Subfield('o', F952oValue))
 
-	def set952p:
+	def set952p(self):
 		self.subfieldsMARC.append(Subfield('p', F952p[0]))
 		F952p[0] += 1
 
-	def set952r:
+	def set952r(self):
 		F952rvalue = datetime.now().strftime('%Y-%m-%d')
 		self.subfieldsMARC.append(Subfield('r', F952rvalue))
 
-	def set952x:
+	def set952x(self):
 		F952xValue = self.getSFfrom091('x')
 		if F952xValue:
 			self.subfieldsMARC.append(Subfield('x', F952xValue))

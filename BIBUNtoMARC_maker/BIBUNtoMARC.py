@@ -8,6 +8,7 @@ from BIBUNtoMARC_maker.F5XXnotas_maker import F5XXnotas_maker
 from BIBUNtoMARC_maker.encSec_maker import encSec_maker
 from BIBUNtoMARC_maker.F78Xrelaciones_maker import F78Xrelaciones_maker
 from BIBUNtoMARC_maker.F9XXcamposPropios_maker import F9XXcamposPropios_maker
+from BIBUNtoMARC_maker.F952ejemplares_maker import F952ejemplares_maker
 
 class BIBUNtoMARC:
 
@@ -27,6 +28,7 @@ class BIBUNtoMARC:
 		F78Xrelaciones_maker(self.recordBIBUN, self.recordMARC).addF78Xrelaciones()
 		F78Xrelaciones_maker(self.recordBIBUN, self.recordMARC).addF78Xrelaciones()
 		F9XXcamposPropios_maker(self.recordBIBUN, self.recordMARC).addF9XXcamposPropios()
+		F952ejemplares_maker(self.recordBIBUN, self.recordMARC).addF952ejemplares()
 
 
 
