@@ -103,7 +103,6 @@ class F2XXtitulos_maker:
 		if F2XXtitulos_maker.hay(sfB):
 			for i, item in enumerate(sfB):
 				value = item.value
-				# value = hacePrimeraLetraMinus(item.value)
 				if i != len(sfB)-1:
 					value +=  ' : '
 				else:

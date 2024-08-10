@@ -1,7 +1,7 @@
 from pymarc import Record
 from pymarc import Field
 from pymarc import Subfield
-from gettersSetters.getters import getListaDeCamposEnRegistro
+from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
 from .diccionarios.BIBUN046n_MARC310a import BIBUN046n_MARC310a
 
 
@@ -17,16 +17,20 @@ class F3XXdescFis_maker:
 
 	def set310_222(self):
 		F046BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '046')
+		
 		subfieldsMARC = []
 		fieldMARC = ''
 		for i, item in enumerate(F046BIBUNList):
-			field = '310' if i == 0 else '322'
-			for sf in item.subfields:
-				if sf.code == 'c':
-					value = BIBUN046n_MARC310a[sf.value]
-					subfieldsMARC.append(Subfield('a', value))
-			fieldMARC = Field(field, [' ', ' '], subfieldsMARC)
-			self.recordMARC.add_field(fieldMARC)
+			sfCList = getSubfields(item, 'c')
+			print(len(sfCList))
+			if len(sfCList) > 0:
+				field = '310' if i == 0 else '322'
+				for sf in item.subfields:
+					if sf.code == 'c':
+						value = BIBUN046n_MARC310a[sf.value]
+						subfieldsMARC.append(Subfield('a', value))
+				fieldMARC = Field(field, [' ', ' '], subfieldsMARC)
+				self.recordMARC.add_field(fieldMARC)
 
 
 	def addF3XXdescDis(self):
