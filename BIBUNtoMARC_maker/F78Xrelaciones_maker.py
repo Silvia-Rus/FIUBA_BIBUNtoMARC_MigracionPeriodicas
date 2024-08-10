@@ -12,7 +12,7 @@ class F78Xrelaciones_maker:
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F786o = Field('786', ['#', '#'], [Subfield('o','AIG')])
+		self.F786o = Field('786', ['1', '9'], [Subfield('o','AIG')])
 
 
 	def set78X(self, tagField):

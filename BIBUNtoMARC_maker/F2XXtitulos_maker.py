@@ -11,6 +11,7 @@ class F2XXtitulos_maker:
 
 	def set210_222(self, field):
 		fieldBIBUN = '037' if field == '210' else '035'
+		ind = ['0', ' '] if field == '210' else [' ', ' ']
 		F037BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '037')
 		if len(F037BIBUNList) > 0:
 			for item in F037BIBUNList:
@@ -25,7 +26,7 @@ class F2XXtitulos_maker:
 							subfieldsMARC.append(Subfield('b', '('+sfB+')'))
 					elif sf.code == 'c':
 						subfieldsMARC.append(Subfield('b', '('+sf.value+')'))
-				fieldMARC = Field(field, ['0', '#'], subfieldsMARC)
+				fieldMARC = Field(field, ind, subfieldsMARC)
 				fieldMARC.subfields.sort(key=lambda x: x.code)
 				self.recordMARC.add_field(fieldMARC)
 
@@ -131,7 +132,7 @@ class F2XXtitulos_maker:
 
 
 		subfieldsMARC =  retorno
-		fieldMARC = Field('245', ['0', '#'], subfieldsMARC)
+		fieldMARC = Field('245', ['0', ' '], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
 	def set246(self):
@@ -142,7 +143,7 @@ class F2XXtitulos_maker:
 				for sf in item.subfields:
 					if sf.code == 'a':
 						subfieldsMARC.append(Subfield('a', sf.value))
-				fieldMARC = Field('246', ['2', '#'], subfieldsMARC)
+				fieldMARC = Field('246', ['2', ' '], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
 
 	def addF2XXtitulos(self):

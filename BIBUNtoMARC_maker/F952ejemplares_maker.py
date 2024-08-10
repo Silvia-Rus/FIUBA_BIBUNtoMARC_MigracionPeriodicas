@@ -81,7 +81,7 @@ class F952ejemplares_maker:
 		self.set952r()
 		self.set952x()
 		self.subfieldsMARC.append(Subfield('y', 'CR'))
-		fieldMARC = Field('952', ['#', '#'], self.subfieldsMARC)
+		fieldMARC = Field('952', [' ', ' '], self.subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
 	def addF952ejemplares(self):

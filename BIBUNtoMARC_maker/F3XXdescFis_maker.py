@@ -10,7 +10,7 @@ class F3XXdescFis_maker:
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F0300 = Field('300', ['#', '#'], [Subfield('a','v.')])
+		self.F0300 = Field('300', [' ', ' '], [Subfield('a','v.')])
 
 	def set300(self):
 		self.recordMARC.add_field(self.F0300)
@@ -25,7 +25,7 @@ class F3XXdescFis_maker:
 				if sf.code == 'c':
 					value = BIBUN046n_MARC310a[sf.value]
 					subfieldsMARC.append(Subfield('a', value))
-			fieldMARC = Field(field, ['#', '#'], subfieldsMARC)
+			fieldMARC = Field(field, [' ', ' '], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 
 

@@ -50,14 +50,14 @@ class F86Xexistencias_maker:
 		sfZMARCfrom191 = self.getSfZ('199')
 		sfZMARC = sfZMARCfrom099 + sfZMARCfrom191
 		subfieldsMARC = sf2MARC + sfAMARC + sfZMARC
-		fieldMARC = Field('866', ['#', '7'], subfieldsMARC)
+		fieldMARC = Field('866', [' ', '7'], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
 
 	def set867_868(self, field):
 		subfieldsMARC = self.setSFa(field)
 		if len(subfieldsMARC) > 0:
-			fieldMARC = Field(field, ['#', '0'], subfieldsMARC)
+			fieldMARC = Field(field, [' ', '0'], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 
 

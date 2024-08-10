@@ -11,7 +11,6 @@ from pymarc    import MARCReader
 from pymarc    import Record
 from escribirMarc import EscribirMARC
 from informes  import initCSV, writeCSVCounter
-# from CF008_maker import CF008_maker
 
 bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_10REG.mrc'

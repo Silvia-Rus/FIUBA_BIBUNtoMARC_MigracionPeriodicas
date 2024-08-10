@@ -18,7 +18,7 @@ class F5XXnotas_maker:
 				if sf.code == 'c':
 					subfieldsMARC.append(Subfield('a', 'Enriquecimiento del título: '+sf.value))
 			if len(subfieldsMARC) > 0:
-				fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
+				fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
 
 	def set500desde046(self):
@@ -35,7 +35,7 @@ class F5XXnotas_maker:
 
 			if valueN != '' or valueV != '':
 				subfieldsMARC.append(Subfield('a', valueN + valueV))
-			fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
+			fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 
 	def set500desde059(self):
@@ -45,7 +45,7 @@ class F5XXnotas_maker:
 			for sf in item.subfields:
 				subfieldsMARC.append(Subfield('a', sf.value))
 			if len(subfieldsMARC) > 0:
-				fieldMARC = Field('500', ['#', '#'], subfieldsMARC)
+				fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
 
 	def addF5XXnotas(self):

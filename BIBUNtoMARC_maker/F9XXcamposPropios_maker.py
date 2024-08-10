@@ -9,7 +9,7 @@ class F9XXcamposPropios_maker:
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F964 = Field('964', ['#', '#'], [Subfield('b','PUBENSERIE')])
+		self.F964 = Field('964', [' ', ' '], [Subfield('b','PUBENSERIE')])
 
 
 	def set942(self):
@@ -17,7 +17,7 @@ class F9XXcamposPropios_maker:
 		subfieldsMARC.append(Subfield('n', '0'))
 		subfieldsMARC.append(Subfield('c', 'CR'))
 		subfieldsMARC.append(Subfield('2', 'udc'))
-		fieldMARC = Field('942', ['#', '#'], subfieldsMARC)
+		fieldMARC = Field('942', [' ', ' '], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
 	def set985(self, field):

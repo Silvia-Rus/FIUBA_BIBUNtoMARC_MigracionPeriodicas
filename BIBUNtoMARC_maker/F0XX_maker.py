@@ -9,13 +9,13 @@ class F0XX_maker:
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F040a = Field('040', ['#', '#'], [Subfield('a','AR-BaUFI'), Subfield('b', 'spa')])
+		self.F040a = Field('040', [' ', ' '], [Subfield('a','AR-BaUFI'), Subfield('b', 'spa')])
 
 	def set022a(self):
 		F015aBIBUNList = getSubfieldsFromField(self.recordBIBUN, '015', 'a')
 		retorno = False
 		if len(F015aBIBUNList) > 0:
-			retorno = Field('022', ['#', '#'], [Subfield('a', F015aBIBUNList[0])])
+			retorno = Field('022', [' ', ' '], [Subfield('a', F015aBIBUNList[0])])
 		return retorno
 
 	def set080a(self):
@@ -24,7 +24,7 @@ class F0XX_maker:
 		F060a061aBIBUNList = F060aBIBUNList + F061aBIBUNList
 		retorno = False
 		if len(F060a061aBIBUNList) > 0:
-			retorno = Field('080',[ '#', '#'], [Subfield('a', F060a061aBIBUNList[0])])
+			retorno = Field('080',[' ', ' '], [Subfield('a', F060a061aBIBUNList[0])])
 		return retorno
 
 	def addF0XX(self):
