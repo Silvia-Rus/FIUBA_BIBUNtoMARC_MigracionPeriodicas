@@ -1,7 +1,7 @@
 from pymarc import Record
 from pymarc import Field
 from pymarc import Subfield
-from gettersSetters.getters import getListaDeCamposEnRegistro
+from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
 
 class F5XXnotas_maker:
 
@@ -14,29 +14,34 @@ class F5XXnotas_maker:
 		subfieldsMARC = []
 		fieldMARC = ''
 		for item in F036BIBUNList:
-			for sf in item.subfields:
-				if sf.code == 'c':
-					subfieldsMARC.append(Subfield('a', 'Enriquecimiento del título: '+sf.value))
-			if len(subfieldsMARC) > 0:
-				fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
-				self.recordMARC.add_field(fieldMARC)
+			sfCList = getSubfields(item, 'c')
+			if len(sfCList) > 0:
+				for sf in item.subfields:
+					if sf.code == 'c':
+						subfieldsMARC.append(Subfield('a', 'Enriquecimiento del título: '+sf.value))
+				if len(subfieldsMARC) > 0:
+					fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
+					self.recordMARC.add_field(fieldMARC)
 
 	def set500desde046(self):
 		F046BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '046')
 		subfieldsMARC = []
 		for item in F046BIBUNList:
-			valueN = ''
-			valueV = ''
-			for sf in item.subfields:
-				if sf.code == 'n':
-					valueN = 'Números por volumen: '+sf.value+'. '
-				elif sf.code == 'v':
-					valueV = 'Volúmenes por año: '+sf.value+'. '
+			sfNList = getSubfields(item, 'n')
+			sfVList = getSubfields(item, 'v')
+			if len(sfNList) > 0 or len(sfVList) > 0 :
+				valueN = ''
+				valueV = ''
+				for sf in item.subfields:
+					if sf.code == 'n':
+						valueN = 'Números por volumen: '+sf.value+'. '
+					elif sf.code == 'v':
+						valueV = 'Volúmenes por año: '+sf.value+'. '
 
-			if valueN != '' or valueV != '':
-				subfieldsMARC.append(Subfield('a', valueN + valueV))
-			fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
-			self.recordMARC.add_field(fieldMARC)
+				if valueN != '' or valueV != '':
+					subfieldsMARC.append(Subfield('a', valueN + valueV))
+				fieldMARC = Field('500', [' ', ' '], subfieldsMARC)
+				self.recordMARC.add_field(fieldMARC)
 
 	def set500desde059(self):
 		F059BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '059')
