@@ -55,12 +55,6 @@ def borrarElUltimoCaracter(texto):
 
 def separarParteEntreSimbolos(texto, simbolo):
     return texto.split(simbolo)
-    # retorno = []
-    # partes = texto.split(simbolo)
-    # retorno.append(partes[0])
-    # if len(partes) > 1:
-    #     retorno.append(partes[1].split(')')[0])
-    # return retorno
 
 def tieneIlustraciones(listaDeStrings):
     return apareceElStringEnLaLista(a, listaDeStrings)

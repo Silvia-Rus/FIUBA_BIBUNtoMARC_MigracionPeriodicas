@@ -38,34 +38,44 @@ class F2XXtitulos_maker:
 
 	def get245(self):
 		F036BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '036')
-		sfA = []
-		sfB = []
-		sfN = []
-		sfP = []
-		sfC = []
+		sfAList = []
+		sfBValues = []
+		sfBList = []
+		sfNList = []
+		sfPList = []
+		sfCList = []
 		retorno = []
 		if len(F036BIBUNList) > 0:
 			for item in F036BIBUNList:
 				subfieldsMARC = []
 				for sf in item.subfields:
 					if sf.code == 't':
-						if len(sfA) == 0:
-							sfA.append(Subfield('a', sf.value))
+						if len(sfAList) == 0:
+							sfAList.append(Subfield('a', sf.value))
 						else:
-							sfB.append(Subfield('b', sf.value))
+							sfBValues.append(sf.value)
 					elif sf.code == 's':
-						sfB.append(Subfield('b', sf.value))
+						sfBValues.append(sf.value)
 					elif sf.code == 'd':
-						sfN.append(Subfield('n', sf.value))
+						sfNList.append(Subfield('n', sf.value))
 					elif sf.code == 'u':
-						sfP.append(Subfield('p', sf.value))
+						sfPList.append(Subfield('p', sf.value))
 					elif sf.code == 'r':
-						sfC.append(Subfield('c', sf.value))
-		retorno.append(sfA)
-		retorno.append(sfB)
-		retorno.append(sfN)
-		retorno.append(sfP)
-		retorno.append(sfC)
+						sfCList.append(Subfield('c', sf.value))
+
+		if len(sfBValues) > 0:
+			value = ''
+			for i, item in enumerate(sfBValues):
+				if i > 0:
+					value += ' : ' 
+				value += hacePrimeraLetraMinus(item)					 
+			sfBList.append(Subfield('b', value))
+
+		retorno.append(sfAList)
+		retorno.append(sfBList)
+		retorno.append(sfNList)
+		retorno.append(sfPList)
+		retorno.append(sfCList)
 		return retorno
 
 	@classmethod
@@ -92,7 +102,8 @@ class F2XXtitulos_maker:
 		#puntuación sfB
 		if F2XXtitulos_maker.hay(sfB):
 			for i, item in enumerate(sfB):
-				value = hacePrimeraLetraMinus(item.value)
+				value = item.value
+				# value = hacePrimeraLetraMinus(item.value)
 				if i != len(sfB)-1:
 					value +=  ' : '
 				else:
