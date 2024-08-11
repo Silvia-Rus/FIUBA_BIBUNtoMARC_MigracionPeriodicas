@@ -4,7 +4,7 @@ from pymarc import Subfield
 from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
 from .diccionarios.BIBUN057r_MARC780ind2 import BIBUN057r_MARC780ind2
 from .diccionarios.BIBUN058r_MARC785ind2 import BIBUN058r_MARC785ind2
-from regex import borrarString, detectarString
+from regex import borrarString, detectarString, quitarTilde
 
 
 class F78Xrelaciones_maker:
@@ -23,27 +23,35 @@ class F78Xrelaciones_maker:
 			subfieldsMARC = []
 			listSFrBIBUN = getSubfields(item, 'r')
 			listSFtBIBUN = getSubfields(item, 't')
+			listSFiBIBUN = getSubfields(item, 'i')
 			listSFiMARC = [];
 			listSFtMARC = [];
 			listSFxMARC = [];
 			if len(listSFrBIBUN) == 0 and len(listSFtBIBUN) == 2:
-				ind2 = self.setInd2(tagField, listSFtBIBUN[0])
+				ind2 = self.setInd2(tagField, quitarTilde(listSFtBIBUN[0]))
 				listSFtMARC.append(Subfield('t', listSFtBIBUN[1]))
 			elif len(listSFrBIBUN) > 0 and len(listSFtBIBUN) > 0:
-				ind2 = self.setInd2(tagField, listSFtBIBUN[0])
-				listSFtMARC.append(Subfield('t', listSFtBIBUN[0]))
-			for sf in item.subfields:
-				if sf.code == 'r':
-					listSFiMARC.append(Subfield('i', sf.value))
-				elif sf.code == 'i':
-					value = sf.value if not detectarString(sf.value, 'ISSN') else borrarString(sf.value, 'ISSN ')
-					listSFxMARC.append(Subfield('x', value))
-			subfieldsMARC = listSFiMARC + listSFtMARC + listSFxMARC
-			fieldMARC = Field(tagField, ['0', ind2], subfieldsMARC)
-			self.recordMARC.add_field(fieldMARC)
+				ind2 = self.setInd2(tagField, quitarTilde(listSFrBIBUN[0]))
+				for sfT in listSFtBIBUN:
+					listSFtMARC.append(Subfield('t', sfT))
+				for sfR in listSFrBIBUN:
+					listSFiMARC.append(Subfield('i', sfR))
+
+			for sfI in listSFiBIBUN:
+				valueSinISSN = sfI if not detectarString(sfI, 'ISSN') else borrarString(sfI, 'ISSN ')
+				value = valueSinISSN if not detectarString(valueSinISSN, 'y ') else borrarString(valueSinISSN, 'y ')
+				listSFxMARC.append(Subfield('x', value))
+					
+			for index, SFtMARC in enumerate(listSFtMARC):
+				subfieldsMARC = listSFiMARC + [SFtMARC] 
+				if index <= len(listSFxMARC)-1:
+					subfieldsMARC += [listSFxMARC[index]]
+				print("Formando el Field: "+str(ind2))
+				fieldMARC = Field(tagField, ['0', ind2], subfieldsMARC)
+				self.recordMARC.add_field(fieldMARC)
 
 	def setInd2(self, tagField, texto):
-		retorno = '#'
+		retorno = ' '
 		diccionario = BIBUN057r_MARC780ind2 if tagField == '780' else BIBUN058r_MARC785ind2
 		if texto in diccionario:
 			retorno = diccionario[texto]
