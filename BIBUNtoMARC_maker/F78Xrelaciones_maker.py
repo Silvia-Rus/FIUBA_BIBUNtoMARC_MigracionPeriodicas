@@ -55,6 +55,9 @@ class F78Xrelaciones_maker:
 		diccionario = BIBUN057r_MARC780ind2 if tagField == '780' else BIBUN058r_MARC785ind2
 		if texto in diccionario:
 			retorno = diccionario[texto]
+		else:
+			fieldMARC = Field(599, [' ', ' '], [Subfield('i', 'Problema en en'+tagField+'ind2. El contenido del'+tagField+'$i es confusoo inexistente. Consultar la fuente.')])
+			self.recordMARC.add_field(fieldMARC)
 		return retorno
 
 	def set780(self):
