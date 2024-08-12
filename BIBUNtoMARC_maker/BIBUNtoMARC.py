@@ -5,7 +5,7 @@ from BIBUNtoMARC_maker.F2XXtitulos_maker import F2XXtitulos_maker
 from BIBUNtoMARC_maker.F2XXpublic_maker import F2XXpublic_maker
 from BIBUNtoMARC_maker.F3XXdescFis_maker import F3XXdescFis_maker
 from BIBUNtoMARC_maker.F5XXnotas_maker import F5XXnotas_maker
-from BIBUNtoMARC_maker.encSec_maker import encSec_maker
+from BIBUNtoMARC_maker.F6XX7XXencSec_maker import F6XX7XXencSec_maker
 from BIBUNtoMARC_maker.F78Xrelaciones_maker import F78Xrelaciones_maker
 from BIBUNtoMARC_maker.F86Xexistencias_maker import F86Xexistencias_maker
 from BIBUNtoMARC_maker.F9XXcamposPropios_maker import F9XXcamposPropios_maker
@@ -26,7 +26,7 @@ class BIBUNtoMARC:
 		F2XXpublic_maker(self.recordBIBUN, self.recordMARC).addF2XXpublic()
 		F3XXdescFis_maker(self.recordBIBUN, self.recordMARC).addF3XXdescDis()
 		F5XXnotas_maker(self.recordBIBUN, self.recordMARC).addF5XXnotas()
-		encSec_maker(self.recordBIBUN, self.recordMARC).addEncSec()
+		F6XX7XXencSec_maker(self.recordBIBUN, self.recordMARC).addF6XX7XXencSec()
 		F78Xrelaciones_maker(self.recordBIBUN, self.recordMARC).addF78Xrelaciones()
 		F86Xexistencias_maker(self.recordBIBUN, self.recordMARC).addF86Xexistencias()		
 		F9XXcamposPropios_maker(self.recordBIBUN, self.recordMARC).addF9XXcamposPropios()
