@@ -6,6 +6,7 @@ from regex import getCuatroPrimerasCifras, tieneFotos, tieneGraficas, tieneIlust
 from datetime import datetime
 from ..diccionarios.BIBUN_048a_008_15_17 import BIBUN_048a_008_15_17
 from ..diccionarios.BIBUN_046a_008_18 import BIBUN_046a_008_18
+from ..diccionarios.BIBUN046a_MARC008_19 import BIBUN046a_MARC008_19
 from ..diccionarios.BIBUN_050_008_35_37 import BIBUN_050_008_35_37
 
 
@@ -63,13 +64,13 @@ class CF008_maker:
         str15_17 += '#'
       return self.setPosiciones008(str15_17, 15, 17)
 
-    def setControlField008_18(self): # periodicidad
-      str18 = '|' 
+    def setControlField008_18_19(self, pos): # periodicidad # regularidad
+      retorno = '|' 
+      diccionario = BIBUN_046a_008_18 if pos == 18 else BIBUN046a_MARC008_19
       periodicidadLista = getList046c(self.recordBIBUN)
-      if len(periodicidadLista) > 0 and BIBUN_046a_008_18[periodicidadLista[0]] != None:
-          
-          str18 = BIBUN_046a_008_18[periodicidadLista[0]]
-      return self.setPosiciones008(str18, 18)
+      if len(periodicidadLista) > 0 and diccionario[periodicidadLista[0]] != None:
+          retorno = diccionario[periodicidadLista[0]]
+      return self.setPosiciones008(retorno, pos)
 
     def setControlField008_35_37(self):
       str35_37 = '|||'
@@ -108,7 +109,8 @@ class CF008_maker:
        self.setControlField008_06_10()
        self.setControlField008_11_14()
        self.setControlField008_15_17()
-       self.setControlField008_18()
+       self.setControlField008_18_19(18)
+       self.setControlField008_18_19(19)
        self.setControlField008_35_37()
        setCF008(self.recordMARC, self.CF008)
 

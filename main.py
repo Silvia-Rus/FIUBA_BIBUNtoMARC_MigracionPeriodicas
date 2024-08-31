@@ -42,7 +42,7 @@ if(len(listaDeCampos) > 0):
                 print(record)
                 # enlazador.record = record
                 # enlazador.link_auth(listaDeCampos)
-                e.escribir(record)
+                # e.escribir(record)
             # print(writeCSVCounter(enlazador.recordCounter, enlazador.unlinkedAuth, enlazador.matchingAuth))
             # print("Trasnformacion exitosa:\n"
             #       "->Puede ver su archivo mrc modificado en archivos/mrcTransformed.\n"

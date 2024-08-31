@@ -12,9 +12,9 @@ class F2XXtitulos_maker:
 	def set210_222(self, field):
 		fieldBIBUN = '037' if field == '210' else '035'
 		ind = ['0', ' '] if field == '210' else [' ', ' ']
-		F037BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '037')
-		if len(F037BIBUNList) > 0:
-			for item in F037BIBUNList:
+		FBIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
+		if len(FBIBUNList) > 0:
+			for item in FBIBUNList:
 				subfieldsMARC = []
 				for sf in item.subfields:
 					if sf.code == 't':
