@@ -2,7 +2,7 @@ from pymarc import Record
 from pymarc import Field
 from pymarc import Subfield
 from gettersSetters.getters import getListaDeCamposEnRegistro
-from regex import hacePrimeraLetraMinus, hacePrimeraLetraMayus
+from regex import hacePrimeraLetraMinus, hacePrimeraLetraMayus, borrarString
 
 
 class F2XXpublic_maker:
@@ -47,11 +47,13 @@ class F2XXpublic_maker:
 			retorno.append(Subfield('b', '? :'))
 		else:
 			for i, sf in enumerate(sfBList):
-				value = hacePrimeraLetraMayus(sf.value)
+				valueMinus = hacePrimeraLetraMayus(sf.value)
+				valueSinErr2 = borrarString(valueMinus, '[err2]')
+				value = borrarString(valueSinErr2, '[err3]')
 				if i == len(sfBList) - 1:
-					value += ' ,'
+					value += ','
 				else:
-					value += ' ; '
+					value += ' :'
 				retorno.append(Subfield('b', value)) 
 		return retorno
 

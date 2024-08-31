@@ -15,6 +15,8 @@ from informes  import initCSV, writeCSVCounter
 bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_10REG.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_1REG.mrc'
+# bibliosBIBUN = 'archivos/mrcFiles/BIB_TITULOS.mrc'
+
 
 campo100 = Campo('100', [Subcampo('a', ''), Subcampo('d', '')])
 campo110 = Campo('110', [Subcampo('a', ''), Subcampo('b', '')])

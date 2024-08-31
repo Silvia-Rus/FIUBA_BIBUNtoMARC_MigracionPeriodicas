@@ -38,44 +38,44 @@ class F2XXtitulos_maker:
 
 	def get245(self):
 		F036BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '036')
-		sfAList = []
-		sfBValues = []
-		sfBList = []
-		sfNList = []
-		sfPList = []
-		sfCList = []
 		retorno = []
-		if len(F036BIBUNList) > 0:
-			for item in F036BIBUNList:
-				subfieldsMARC = []
-				for sf in item.subfields:
-					if sf.code == 't':
-						if len(sfAList) == 0:
-							sfAList.append(Subfield('a', sf.value))
-						else:
-							sfBValues.append(sf.value)
-					elif sf.code == 's':
+		for item in F036BIBUNList:
+			sfAList = []
+			sfBValues = []
+			sfBList = []
+			sfNList = []
+			sfPList = []
+			sfCList = []
+			# subfieldsMARC = []
+			subfieldsList = []
+			for sf in item.subfields:
+				if sf.code == 't':
+					if len(sfAList) == 0:
+						sfAList.append(Subfield('a', sf.value))
+					else:
 						sfBValues.append(sf.value)
-					elif sf.code == 'd':
-						sfNList.append(Subfield('n', sf.value))
-					elif sf.code == 'u':
-						sfPList.append(Subfield('p', sf.value))
-					elif sf.code == 'r':
-						sfCList.append(Subfield('c', sf.value))
+				elif sf.code == 's':
+					sfBValues.append(sf.value)
+				elif sf.code == 'd':
+					sfNList.append(Subfield('n', sf.value))
+				elif sf.code == 'u':
+					sfPList.append(Subfield('p', sf.value))
+				elif sf.code == 'r':
+					sfCList.append(Subfield('c', sf.value))
 
-		if len(sfBValues) > 0:
-			value = ''
-			for i, item in enumerate(sfBValues):
-				if i > 0:
-					value += ' : ' 
-				value += hacePrimeraLetraMinus(item)					 
-			sfBList.append(Subfield('b', value))
-
-		retorno.append(sfAList)
-		retorno.append(sfBList)
-		retorno.append(sfNList)
-		retorno.append(sfPList)
-		retorno.append(sfCList)
+			if len(sfBValues) > 0:
+				value = ''
+				for i, item in enumerate(sfBValues):
+					if i > 0:
+						value += ' : ' 
+					value += hacePrimeraLetraMinus(item)					 
+				sfBList.append(Subfield('b', value))
+			subfieldsList.append(sfAList)
+			subfieldsList.append(sfBList)
+			subfieldsList.append(sfNList)
+			subfieldsList.append(sfPList)
+			subfieldsList.append(sfCList)
+			retorno.append(subfieldsList)
 		return retorno
 
 	@classmethod
@@ -83,67 +83,73 @@ class F2XXtitulos_maker:
 		return len(list) > 0 
 			
 	def set245(self):
-		sfA = self.get245()[0]
-		sfB = self.get245()[1]
-		sfN = self.get245()[2]
-		sfP = self.get245()[3]
-		sfC = self.get245()[4]
-		retorno = []
-		#puntuación sfA
-		if F2XXtitulos_maker.hay(sfA):
-			value = sfA[0].value
+		subfieldsGroups = self.get245()
+		print(subfieldsGroups)
+		for indexGroup, group in enumerate(subfieldsGroups):
+			sfA = group[0]
+			sfB = group[1]
+			sfN = group[2]
+			sfP = group[3]
+			sfC = group[4]
+			retorno = []
+			#puntuación sfA
+			if F2XXtitulos_maker.hay(sfA):
+				value = sfA[0].value
+				if F2XXtitulos_maker.hay(sfB):
+					value += ' : '
+				elif F2XXtitulos_maker.hay(sfN) or F2XXtitulos_maker.hay(sfP):
+					value += '. '
+				elif F2XXtitulos_maker.hay(sfC):
+					value += ' / '
+				retorno.append(Subfield('a', value))	
+			#puntuación sfB
 			if F2XXtitulos_maker.hay(sfB):
-				value += ' : '
-			elif F2XXtitulos_maker.hay(sfN) or F2XXtitulos_maker.hay(sfP):
-				value += '. '
-			elif F2XXtitulos_maker.hay(sfC):
-				value += ' / '
-			retorno.append(Subfield('a', value))	
-		#puntuación sfB
-		if F2XXtitulos_maker.hay(sfB):
-			for i, item in enumerate(sfB):
-				value = item.value
-				if i != len(sfB)-1:
-					value +=  ' : '
-				else:
-					if F2XXtitulos_maker.hay(sfN) and F2XXtitulos_maker.hay(sfP):
-						value +=  '. '
-					elif F2XXtitulos_maker.hay(sfC):
-						value +=  ' / '	
-				retorno.append(Subfield('b', value))
-		#puntuación sfN
-		if F2XXtitulos_maker.hay(sfN):
-			for i, item in enumerate(sfN):
-				value = hacePrimeraLetraMayus(item.value)
-				if i != len(sfN)-1:
-					value +=  ', '
-				else:
-					if F2XXtitulos_maker.hay(sfP):
+				for i, item in enumerate(sfB):
+					value = item.value
+					if i != len(sfB)-1:
+						value +=  ' : '
+					else:
+						if F2XXtitulos_maker.hay(sfN) and F2XXtitulos_maker.hay(sfP):
+							value +=  '. '
+						elif F2XXtitulos_maker.hay(sfC):
+							value +=  ' / '	
+					retorno.append(Subfield('b', value))
+			#puntuación sfN
+			if F2XXtitulos_maker.hay(sfN):
+				for i, item in enumerate(sfN):
+					value = hacePrimeraLetraMayus(item.value)
+					if i != len(sfN)-1:
+						value +=  ', '
+					else:
+						if F2XXtitulos_maker.hay(sfP):
+							value += ', '
+						elif F2XXtitulos_maker.hay(sfC):
+							value +=  ' / '	
+					retorno.append(Subfield('n', value))
+			#puntuación sfP
+			if F2XXtitulos_maker.hay(sfP):
+				for i, item in enumerate(sfP):
+					value = hacePrimeraLetraMinus(item.value) if F2XXtitulos_maker.hay(sfN) else hacePrimeraLetraMayus(item.value)
+					if i != len(sfP)-1:
 						value += ', '
-					elif F2XXtitulos_maker.hay(sfC):
-						value +=  ' / '	
-				retorno.append(Subfield('n', value))
-		#puntuación sfP
-		if F2XXtitulos_maker.hay(sfP):
-			for i, item in enumerate(sfP):
-				value = hacePrimeraLetraMinus(item.value) if F2XXtitulos_maker.hay(sfN) else hacePrimeraLetraMayus(item.value)
-				if i != len(sfP)-1:
-					value += ', '
-				else:
-					if F2XXtitulos_maker.hay(sfC):
-						value += ' / '
-				retorno.append(Subfield('p', value))
-		if F2XXtitulos_maker.hay(sfC):
-			for i, item in enumerate(sfC):
-				value = hacePrimeraLetraMayus(item.value)
-				if i > 0:
-					value += ', '
-				retorno.append(Subfield('c', value))
-
-
-		subfieldsMARC =  retorno
-		fieldMARC = Field('245', ['0', ' '], subfieldsMARC)
-		self.recordMARC.add_field(fieldMARC)
+					else:
+						if F2XXtitulos_maker.hay(sfC):
+							value += ' / '
+					retorno.append(Subfield('p', value))
+			if F2XXtitulos_maker.hay(sfC):
+				for i, item in enumerate(sfC):
+					value = hacePrimeraLetraMayus(item.value)
+					if i > 0:
+						value += ', '
+					retorno.append(Subfield('c', value))
+			subfieldsMARC =  retorno
+			tag = '245' if indexGroup == 0 else '246'
+			fieldMARC = Field(tag, ['0', ' '], subfieldsMARC)
+			self.recordMARC.add_field(fieldMARC)
+			if tag == '246':
+				sf599a = [Subfield('a', 'Controlar que el 246 no es en realidad 220 ó 222.')]
+				field599 = Field('599', [' ', ' '], sf599a)
+				self.recordMARC.add_field(field599)
 
 	def set246(self):
 		F038BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '038')
