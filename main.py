@@ -16,6 +16,8 @@ bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_10REG.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_1REG.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_TITULOS.mrc'
+# bibliosBIBUN = 'archivos/mrcFiles/BIB_065.mrc'
+
 
 
 campo100 = Campo('100', [Subcampo('a', ''), Subcampo('d', '')])

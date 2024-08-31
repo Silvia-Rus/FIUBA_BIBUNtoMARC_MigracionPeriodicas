@@ -15,16 +15,24 @@ class F6XX7XXencSec_maker:
 		F065BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '065')
 		for item in F065BIBUNList:
 			for sf in item.subfields:
-				if esElPrimerCaracter(sf.value, '<') and esElUltimoCaracter(sf.value, '>'):
-					text = borrarElPrimerCaracter(sf.value)
-					text = borrarElUltimoCaracter(text)
-					valueList = separarParteEntreSimbolos(text, '><')
-					for item in valueList:
-						fieldMARC = Field('650', ['0', '4'], [Subfield('a', item)])
-						self.recordMARC.add_field(fieldMARC)
-				else:
-					fieldMARC = Field('650', ['0', '4'], [Subfield('a', sf.value)])
+				text = sf.value
+				text = borrarElPrimerCaracter(text) if esElPrimerCaracter(sf.value, '<') else text
+				text = borrarElUltimoCaracter(text) if esElUltimoCaracter(sf.value, '<') else text
+				text = borrarElUltimoCaracter(text) if esElUltimoCaracter(sf.value, '>') else text
+
+				valueList = separarParteEntreSimbolos(text, '><')
+				for item in valueList:
+					fieldMARC = Field('650', ['0', '4'], [Subfield('a', item)])
 					self.recordMARC.add_field(fieldMARC)
+
+				# if text != sf.value:
+				# 	valueList = separarParteEntreSimbolos(text, '><')
+				# 	for item in valueList:
+				# 		fieldMARC = Field('650', ['0', '4'], [Subfield('a', item)])
+				# 		self.recordMARC.add_field(fieldMARC)
+				# else:
+				# 	fieldMARC = Field('650', ['0', '4'], [Subfield('a', sf.value)])
+				# 	self.recordMARC.add_field(fieldMARC)
 				
 
 	def set710(self):
