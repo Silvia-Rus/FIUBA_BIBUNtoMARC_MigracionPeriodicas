@@ -2,7 +2,7 @@ from pymarc import Record
 from pymarc import Field
 from pymarc import Subfield
 from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
-from regex import esElPrimerCaracter, esElUltimoCaracter, borrarElPrimerCaracter, borrarElUltimoCaracter, separarParteEntreSimbolos
+from regex import esElPrimerCaracter, esElUltimoCaracter, borrarElPrimerCaracter, borrarElUltimoCaracter, separarParteEntreSimbolos, borrarString
 
 
 class F6XX7XXencSec_maker:
@@ -43,7 +43,11 @@ class F6XX7XXencSec_maker:
 			listSFeBIBUN = getSubfields(item, 'e')
 			listSF9BIBUN = getSubfields(item, '9')
 			listSFnBIBUN = getSubfields(item, 'n')
-			listSFeSF9SFn = listSFeBIBUN + listSF9BIBUN + listSFnBIBUN
+			listSFeSF9SFnCompleto = listSFeBIBUN + listSF9BIBUN + listSFnBIBUN
+			listSFeSF9SFn = []
+			for sFeSF9SFnCompleto in listSFeSF9SFnCompleto:
+				listSFeSF9SFn.append(borrarString(sFeSF9SFnCompleto, '[err2]'))
+
 			listSFaMARC = []
 			listSFbMARC = []
 
@@ -78,6 +82,7 @@ class F6XX7XXencSec_maker:
 					subfieldsMARC.append(Subfield('g', 'Locación: '+sf.value))
 				elif sf.code == 's':
 					subfieldsMARC.append(Subfield('g', 'Otra forma del nombre: '+sf.value))
+			subfieldsMARC.sort(key=lambda x: x.code)
 			fieldMARC = Field('710', [ind1, ' '], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 

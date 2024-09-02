@@ -71,7 +71,11 @@ def hacePrimeraLetraMinus(texto):
 def hacePrimeraLetraMayus(texto):
     return texto[0].upper() + texto[1:]
 
-
+def borrarCaracteresLuegoDeISSN(texto):
+    match = re.search(r'\d{4}(?!.*\d)', texto)
+    if match:
+        return texto[:match.end()]
+    return texto
     
 
     

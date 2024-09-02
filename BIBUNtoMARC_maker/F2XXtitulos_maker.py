@@ -84,7 +84,6 @@ class F2XXtitulos_maker:
 			
 	def set245(self):
 		subfieldsGroups = self.get245()
-		print(subfieldsGroups)
 		for indexGroup, group in enumerate(subfieldsGroups):
 			sfA = group[0]
 			sfB = group[1]

@@ -17,8 +17,7 @@ bibliosBIBUN = 'archivos/mrcFiles/BIB_TODOS2.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_1REG.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_TITULOS.mrc'
 # bibliosBIBUN = 'archivos/mrcFiles/BIB_065.mrc'
-
-
+# bibliosBIBUN = 'archivos/mrcFiles/BIB_057.mrc'
 
 campo100 = Campo('100', [Subcampo('a', ''), Subcampo('d', '')])
 campo110 = Campo('110', [Subcampo('a', ''), Subcampo('b', '')])
@@ -46,7 +45,7 @@ if(len(listaDeCampos) > 0):
                 print(record)
                 # enlazador.record = record
                 # enlazador.link_auth(listaDeCampos)
-                # e.escribir(record)
+                e.escribir(record)
             # print(writeCSVCounter(enlazador.recordCounter, enlazador.unlinkedAuth, enlazador.matchingAuth))
             # print("Trasnformacion exitosa:\n"
             #       "->Puede ver su archivo mrc modificado en archivos/mrcTransformed.\n"

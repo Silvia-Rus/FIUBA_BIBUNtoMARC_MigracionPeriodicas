@@ -4,7 +4,7 @@ from pymarc import Subfield
 from gettersSetters.getters import getListaDeCamposEnRegistro, getSubfields
 from .diccionarios.BIBUN057r_MARC780ind2 import BIBUN057r_MARC780ind2
 from .diccionarios.BIBUN058r_MARC785ind2 import BIBUN058r_MARC785ind2
-from regex import borrarString, detectarString, quitarTilde
+from regex import borrarString, detectarString, quitarTilde, borrarCaracteresLuegoDeISSN
 
 
 class F78Xrelaciones_maker:
@@ -12,43 +12,45 @@ class F78Xrelaciones_maker:
 	def __init__(self, recordBIBUN, recordMARC):
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
-		self.F786o = Field('786', ['1', '9'], [Subfield('o','AIG')])
-
+		self.F786o = Field('786', [' ', ' '], [Subfield('o','AIG')])
 
 	def set78X(self, tagField):
 		fieldBIBUN = '057' if tagField == '780' else '058'
-		list04XBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
+		listSf05XBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
+		diccionario = BIBUN057r_MARC780ind2 if tagField == '780' else BIBUN058r_MARC785ind2
+
+		print('len 05X: '+str(len(listSf05XBIBUN)))
 		ind2 = '#'
-		for item in list04XBIBUN:
+		for item in listSf05XBIBUN: # nivel campo
+			fields = []
 			subfieldsMARC = []
 			listSFrBIBUN = getSubfields(item, 'r')
 			listSFtBIBUN = getSubfields(item, 't')
-			listSFiBIBUN = getSubfields(item, 'i')
+			# listSFiBIBUN = getSubfields(item, 'i')
 			listSFiMARC = [];
 			listSFtMARC = [];
 			listSFxMARC = [];
+
+			#indicadores 
 			if len(listSFrBIBUN) == 0 and len(listSFtBIBUN) == 2:
 				ind2 = self.setInd2(tagField, quitarTilde(listSFtBIBUN[0]))
-				listSFtMARC.append(Subfield('t', listSFtBIBUN[1]))
 			elif len(listSFrBIBUN) > 0 and len(listSFtBIBUN) > 0:
 				ind2 = self.setInd2(tagField, quitarTilde(listSFrBIBUN[0]))
-				for sfT in listSFtBIBUN:
-					listSFtMARC.append(Subfield('t', sfT))
-				for sfR in listSFrBIBUN:
-					listSFiMARC.append(Subfield('i', sfR))
+			
+			for i, sc in enumerate(item.subfields):
+				if i == 0 and quitarTilde(sc.value) in diccionario:
+					listSFiMARC.append(Subfield('i', sc.value))
+				elif sc.code =='t' and quitarTilde(sc.value) not in diccionario:
+					listSFtMARC.append(Subfield('t', sc.value))	
+				if sc.code =='i':
+					listSFxMARC.append(Subfield('x',borrarCaracteresLuegoDeISSN(sc.value)))
+				
+				if len(listSFtMARC) > 0 and ((i < len(item.subfields)-1 and item.subfields[i+1].code == 't') or i == len(item.subfields)-1):
+					fieldMARC = Field(tagField, ['0', ind2],listSFiMARC + listSFtMARC +listSFxMARC)
+					self.recordMARC.add_field(fieldMARC)
+					listSFtMARC = []
+					listSFxMARC = []
 
-			for sfI in listSFiBIBUN:
-				valueSinISSN = sfI if not detectarString(sfI, 'ISSN') else borrarString(sfI, 'ISSN ')
-				value = valueSinISSN if not detectarString(valueSinISSN, 'y ') else borrarString(valueSinISSN, 'y ')
-				listSFxMARC.append(Subfield('x', value))
-					
-			for index, SFtMARC in enumerate(listSFtMARC):
-				subfieldsMARC = listSFiMARC + [SFtMARC] 
-				if index <= len(listSFxMARC)-1:
-					subfieldsMARC += [listSFxMARC[index]]
-				print("Formando el Field: "+str(ind2))
-				fieldMARC = Field(tagField, ['0', ind2], subfieldsMARC)
-				self.recordMARC.add_field(fieldMARC)
 
 	def setInd2(self, tagField, texto):
 		retorno = ' '
