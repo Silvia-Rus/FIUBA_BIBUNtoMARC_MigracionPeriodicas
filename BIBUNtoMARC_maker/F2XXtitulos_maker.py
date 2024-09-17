@@ -9,6 +9,14 @@ class F2XXtitulos_maker:
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
 
+	def setInd2(texto):
+		# saber el idioma del doc
+		idioma = ''
+
+		# buscar el listado 
+
+		# calcular el ind2
+
 	def set210_222(self, field):
 		fieldBIBUN = '037' if field == '210' else '035'
 		ind = ['0', ' '] if field == '210' else [' ', ' ']
@@ -146,7 +154,7 @@ class F2XXtitulos_maker:
 			fieldMARC = Field(tag, ['0', ' '], subfieldsMARC)
 			self.recordMARC.add_field(fieldMARC)
 			if tag == '246':
-				sf599a = [Subfield('a', 'Controlar que el 246 no es en realidad 220 ó 222.')]
+				sf599a = [Subfield('a', 'Controlar que el 246 no es en realidad 220 ó 222. Info del campo: '+str(fieldMARC))]
 				field599 = Field('599', [' ', ' '], sf599a)
 				self.recordMARC.add_field(field599)
 

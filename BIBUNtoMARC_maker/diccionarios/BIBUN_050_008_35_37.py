@@ -9,7 +9,7 @@ BIBUN_050_008_35_37 = {
     'es': 'spa',
     'fr': 'fre',
     'it': 'ita',
-    'Len': 'en',
+    'Len': 'eng',
     'ni': 'jpn',
     'nl': 'dut',
     'no': 'nor',
@@ -17,6 +17,6 @@ BIBUN_050_008_35_37 = {
     'pt': 'por',
     'ru': 'rus',
     'sv': 'swe',
-    'ar': 'per',
+    'ar': 'spa',
     'be': 'bel'
 }

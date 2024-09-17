@@ -20,6 +20,16 @@ class F9XXcamposPropios_maker:
 		fieldMARC = Field('942', [' ', ' '], subfieldsMARC)
 		self.recordMARC.add_field(fieldMARC)
 
+	def set964(self):
+		list098BIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '098')
+		for item in list098BIBUN:
+			subfieldsMARC = []
+			for sf in item.subfields:
+				subfieldsMARC.append(Subfield('b', sf.value))
+				fieldMARC = Field('964', ['0', '0'], subfieldsMARC)
+				self.recordMARC.add_field(fieldMARC)
+
+
 	def set985(self, field):
 		listBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, field)
 		for item in listBIBUN:
@@ -30,7 +40,14 @@ class F9XXcamposPropios_maker:
 				fieldMARC = Field('985', ['0', '0'], subfieldsMARC)
 				self.recordMARC.add_field(fieldMARC)
 
-	#FALTA EL 986
+	def set986(self):
+		listBIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '086')
+		for item in listBIBUN:
+			subfieldsMARC = []
+			for sf in item.subfields:
+				subfieldsMARC.append(Subfield('a', sf.value))
+				fieldMARC = Field('986', ['0', '0'], subfieldsMARC)
+				self.recordMARC.add_field(fieldMARC)
 
 	def set985from085(self):
 		self.set985('085')
@@ -38,19 +55,12 @@ class F9XXcamposPropios_maker:
 	def set985from096(self):
 		self.set985('096')
 
-	def set964(self):
-		list098BIBUN = getListaDeCamposEnRegistro(self.recordBIBUN, '964')
-		for item in list098BIBUN:
-			subfieldsMARC = []
-			for sf in item.subfields:
-				subfieldsMARC.append(Subfield('b', sf.value))
-				fieldMARC = Field('964', ['0', '0'], subfieldsMARC)
-				self.recordMARC.add_field(fieldMARC)
 
 	def addF9XXcamposPropios(self):
 		self.recordMARC.add_field(self.F997)
 		self.set942()
 		self.set985from085()
 		self.set985from096()
+		self.set986()
 		self.set964()
 		

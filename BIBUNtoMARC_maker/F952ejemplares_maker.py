@@ -30,11 +30,12 @@ class F952ejemplares_maker:
 	def get952o(self):
 		retorno = False
 		F075c = self.getPrimerSF('075', 'c')
-		F0759sinFiltro = self.getPrimerSF('075', 'c')
+		F0759sinFiltro = self.getPrimerSF('075', '9')
 		if F075c:
 			retorno = F075c
 		elif F0759sinFiltro :
-			retorno = F0759sinFiltro if not detectarString(sf.value, '[err3]') else borrarString(sf.value, '[err3]')
+			retorno = borrarString(F0759sinFiltro, '[err3]')
+			retorno = borrarString(F0759sinFiltro, '[Err3]')
 		return retorno
 
 	def set952e(self):
@@ -69,8 +70,7 @@ class F952ejemplares_maker:
 	def set952(self):
 		self.subfieldsMARC.append(Subfield('0', '0'))
 		self.subfieldsMARC.append(Subfield('1', '0'))
-		self.subfieldsMARC.append(Subfield('3', '0'))
-		self.subfieldsMARC.append(Subfield('7', '0'))
+		self.subfieldsMARC.append(Subfield('4', '0'))
 		self.subfieldsMARC.append(Subfield('7', '0'))
 		self.subfieldsMARC.append(Subfield('a', 'BC'))
 		self.subfieldsMARC.append(Subfield('b', 'BC'))

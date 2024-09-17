@@ -11,21 +11,6 @@ class F86Xexistencias_maker:
 		self.recordBIBUN = recordBIBUN
 		self.recordMARC = recordMARC
 
-	def setSFa(self, field):
-		fieldBIBUN = self.getFieldBIBUN(field)
-		FBIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
-		retorno = []
-		for index, item in enumerate(FBIBUNList):
-			value = ''
-			for i, sf in enumerate(item.subfields):
-				if i == len(item.subfields) - 1 and index != len(FBIBUNList) -1:
-					value += sf.value+'; '
-				else:
-					value += sf.value+' '
-			retorno.append(Subfield('a', value))
-		return retorno
-
-
 	def getFieldBIBUN(self, fieldMARC):
 		if fieldMARC == '866':
 			return '080'
@@ -34,12 +19,29 @@ class F86Xexistencias_maker:
 		elif fieldMARC == '868':
 			return '081'
 
+	def setSFa(self, field):
+		fieldBIBUN = self.getFieldBIBUN(field)
+		FBIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
+		retorno = []
+		for index, item in enumerate(FBIBUNList):
+			value = ''
+			for i, sf in enumerate(item.subfields):
+				value = borrarString(sf.value, '[Err3]')
+				value = borrarString(sf.value, '[err3]')
+				if i == len(item.subfields) - 1 and index != len(FBIBUNList) -1:
+					value += '; '
+				else:
+					value += ' '
+			retorno.append(Subfield('a', value))
+		return retorno
+
 	def getSfZ(self, fieldBIBUN):
 		FBIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, fieldBIBUN)
 		retorno = []
 		for item in FBIBUNList:
 			for sf in item:
 				value = borrarString(sf.value, '[Err3]')
+				value = borrarString(sf.value, '[err3]')
 				retorno.append(Subfield('z', value))
 		return retorno
 
@@ -47,7 +49,7 @@ class F86Xexistencias_maker:
 		sf2MARC = [(Subfield('2', 'FOCAD'))]
 		sfAMARC = self.setSFa('866')
 		sfZMARCfrom099 = self.getSfZ('099')
-		sfZMARCfrom191 = self.getSfZ('199')
+		sfZMARCfrom191 = self.getSfZ('191')
 		sfZMARC = sfZMARCfrom099 + sfZMARCfrom191
 		subfieldsMARC = sf2MARC + sfAMARC + sfZMARC
 		fieldMARC = Field('866', [' ', '7'], subfieldsMARC)

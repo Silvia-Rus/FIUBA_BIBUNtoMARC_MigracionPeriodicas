@@ -59,19 +59,19 @@ class F2XXpublic_maker:
 
 	def set260c(self):
 		F045BIBUNList = getListaDeCamposEnRegistro(self.recordBIBUN, '045')
+		valuePrimerAnio = '? - '
+		valueSegundoAnio = ''
 		retorno = []
 		for item in F045BIBUNList:
 			subfieldsMARC = []
-			valuePrimerAnio = '? - '
-			valueSegundoAnio = ''
 			for sf in item.subfields:
 				value = ''
 				if sf.code == 'd':
 					valuePrimerAnio = sf.value+'-'
 				elif sf.code == 'h':
 					valueSegundoAnio = sf.value
-			value = valuePrimerAnio + valueSegundoAnio
-			retorno.append(Subfield('c', value))
+		value = valuePrimerAnio + valueSegundoAnio
+		retorno.append(Subfield('c', value))
 		return retorno
 
 	def set260(self):
